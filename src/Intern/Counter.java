@@ -11,6 +11,9 @@ import java.io.*;
 
 public class Counter {
 	
+	
+	
+	
 	/* Store the counter components in an array list for easy access (H/M/S)
 	 * ArrayList(0) = hour ; ArrayList(1) = minute ; ArrayList(2) = second */	
 	ArrayList<Integer> count = new ArrayList<Integer>(3);

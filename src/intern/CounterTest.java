@@ -1,9 +1,4 @@
-/* This is a JUnit test stub for the Counter class.
- *
- * assertEquals(x),...) function learned from:
- * http:stackoverflow.com/questions/1811103/java-junit-the-method-x-is-ambiguous-for-type-y
- *
- * */
+
 
 package intern;
 
@@ -11,9 +6,30 @@ import static org.junit.Assert.assertArrayEquals;
 import org.junit.*;
 import intern.Counter;
 
+/** JUnit test stub class for the Counter class.
+ * <br>
+ * Validates the functionality of the Counter class through JUnit tests.
+ * There is a test for each method within the class, as well as for each
+ * possible rollover situation. Rollover situation being when, for example,
+ * the seconds field hits 60, causing the minutes field to increment, and
+ * resetting the seconds field to 0.
+ * <br>
+ * References:
+ * <br>
+ * assertArrayEquals(x),...) function:
+ * http:stackoverflow.com/questions/1811103/java-junit-the-method-x-is-ambiguous-for-type-y
+ *
+ * @author Calvin Li
+ * @version 1.0
+ * */
 public class CounterTest {
 
-	/* Main method to facilitate running tests from the terminal */
+	/** Main method
+    * <br>
+    * Contains a line to start the JUnit test runner
+    * by running the CounterTest class
+    *
+    */
 	public static void main(String args[])
 	{
 		org.junit.runner.JUnitCore.main("intern.CounterTest");
@@ -49,7 +65,7 @@ public class CounterTest {
 		int[] needed = {0,0,0};
 		assertArrayEquals(testCounter.get(),needed);
 	}
-	
+
 	/* Testing if the get function.
 	 * Pass if result is 1:1:1. */
 	@Test
@@ -59,7 +75,7 @@ public class CounterTest {
 		int[] needed = {1,1,1};
 		assertArrayEquals(testCounter.get(),needed);
 	}
-	
+
 	/* Increment the seconds field without causing other fields to change.
 	 * Pass if result is 0:0:1. */
 	@Test

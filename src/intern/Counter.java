@@ -5,7 +5,7 @@ package intern;
 /** Implements the Counter class specified in the Intern Project Requirements.
  * The counter increments and decrements itself in intervals of one unit;
  * either hour, minute, or second.
- * <p>
+ * <br>
  * Written on Ubuntu Linux, Eclipse Luna, Java 8 SE.
  * <br>
  * Compiled using javac.

@@ -2,6 +2,8 @@
 
 package intern;
 
+import javax.swing.*;
+
 /** Implements the Counter class specified in the Intern Project Requirements.
  * The counter increments and decrements itself in intervals of one unit;
  * either hour, minute, or second.
@@ -24,9 +26,17 @@ package intern;
  * <br>
  * https://docs.oracle.com/javase/8/docs/api/
  * <br>
- * 4) HTML for use in javadoc:
+ * 4) HTML paragraph tag for use in javadoc:
  * <br>
  * http://www.w3schools.com/html/html_paragraphs.asp
+ * <br>
+ * 5) HTML characters used in javadoc:
+ * <br>
+ * https://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references
+ * <br>
+ * 6) JavaFX tutorial:
+ * <br>
+ * http://docs.oracle.com/javafx/2/get_started/jfxpub-get_started.htm
  *
  * @author Calvin Li
  * @version 1.0
@@ -56,11 +66,11 @@ public class Counter {
 	 * Constructor checks if the values of h, m, and s are
 	 * within bounds; the bounds for each being:
      * <br>
-	 * h ranges from 0 to 23, inclusive;
+	 * 23 &gt; h &ge; 0
      * <br>
-	 * m ranges from 0 to 59, inclusive;
+	 * 59 &gt; m &ge; 0
      * <br>
-	 * s ranges from 0 to 59, inclusive.
+	 * 59 &gt; s &ge; 0 .
 	 *
 	 * @param	h	value to initialize hours field to
 	 * @param	m	value to initialize minutes field to
@@ -201,7 +211,7 @@ public class Counter {
 	/** Decreases the value in the counter's hours field by one.
 	 * <p>
 	 * If value of hours field before decrement is equal to 0,
-	 * sets counter to 23:59:59.
+	 * sets hours to 23, and leaves minutes and seconds fields unchanged.
 	 * */
 	public void decrementHour()
 	{
@@ -212,16 +222,15 @@ public class Counter {
 		else
 		{
             count[0] = 23;
-            count[1] = 59;
-            count[2] = 59;
 		}
 	}
 
 	/** Decreases the value in the counter's minutes field by one.
 	 * <p>
 	 * If value of minutes field before decrement is equal to 0,
-	 * sets minutes and seconds field to 59, and calls <code>decrementHour</code>.
-     * For example, decrementing 2:0:25 yields 1:59:59.
+	 * calls <code>decrementHour</code>, sets minutes to 59, 
+	 * and leaves seconds unchanged.
+     * For example, decrementing 2:0:25 yields 1:59:25.
 	 * */
 	public void decrementMinute()
 	{
@@ -231,7 +240,6 @@ public class Counter {
 		}
 		else
 		{
-            count[2] = 59;
             count[1] = 59;
 			this.decrementHour();
 		}
@@ -240,7 +248,7 @@ public class Counter {
 	/** Decreases the value in the counter's seconds field by one.
 	 * <p>
 	 * If value of seconds field before decrement is equal to 0,
-	 * sets seconds field to 59, and calls <code>decrementMinute</code>.
+	 * calls <code>decrementMinute</code>, and sets seconds to 59.
      * For example, decrementing 2:2:0 yields 2:1:59.
 	 * */
 	public void decrementSecond()

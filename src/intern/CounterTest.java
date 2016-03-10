@@ -1,4 +1,4 @@
-
+/* A JUnit test stub to test the Counter class, as requested by the Maxeta Intern Project. */
 
 package intern;
 
@@ -10,19 +10,24 @@ import intern.Counter;
  * <br>
  * Validates the functionality of the Counter class through JUnit Tests.
  * There is a test for each method within the class, as well as for each
- * possible rollover situation. Rollover situation being when, for example,
- * the seconds field hits 60, causing the minutes field to increment, and
+ * possible rollover situation. A rollover situation occurs when incrementing one
+ * field beyond it's upper bound causes other fields to change. For example,
+ * incrementing the seconds field 59, causing the minutes field to increment, and
  * resetting the seconds field to 0.
  * <br>
  * References:
  * <br>
- * assertArrayEquals(x),...) function:
+ * 1) assertArrayEquals function:
  * <br>
  * http://junit.org/javadoc/latest/org/junit/Assert.html#assertArrayEquals%28int[],%20int[]%29
  * <br>
- * HTML characters used in javadoc:
+ * 2) HTML characters used in javadoc:
  * <br>
  * https://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references
+ * <br>
+ * 3) javadoc author/version tags:
+ * <br>
+ * http://javaworkshop.sourceforge.net/chapter4.html
  *
  * @author Calvin Li
  * @version 1.0
@@ -44,7 +49,17 @@ public class CounterTest {
 		org.junit.runner.JUnitCore.main("intern.CounterTest");
 	}
 
-	/** Tests the default Counter constructor.
+	/** Default Constructor. 
+	 * <br>
+	 * Initializes an instance of CounterTest to run test methods. 
+	 * The JUnit runner constructs a fresh instance of CounterTest
+	 * for each test it runs, there is no need for the user to initialize
+	 * anything.	
+	 */
+	public CounterTest() {};
+	
+	/** Tests whether the the default Counter constructor can initialize
+     * an instance of counter to 0:0:0 without parameters passed to it.
 	 * <br>
 	 * Initializes an instance of the Counter class
 	 * by calling the default constructor.
@@ -59,9 +74,10 @@ public class CounterTest {
 		assertArrayEquals(testCounter.get(), needed);
 	}
 
-	/** Tests the parameterized Counter constructor.
+	/** Tests whether the the parameterized Counter constructor can initialize
+     * a counter instance to the requested time.
 	 * <br>
-	 * Call the parameterized constructor with h = 17,
+	 * Calls the parameterized constructor with h = 17,
 	 * m = 38, s = 29.
 	 * <br>
 	 * Passes if result is 17:38:29. */
@@ -73,7 +89,8 @@ public class CounterTest {
 		assertArrayEquals(testCounter.get(),needed);
 	}
 
-	/** Tests the parameterized Counter constructor with out of bound input.
+	/** Tests whether the the parameterized Counter constructor can detect and deny
+     * a request to initialize a counter to out-of-bound values.
 	 * <br>
 	 * Passes if arguments given to parameterized
 	 * constructor is 50:100:100, but counter initializes to
@@ -86,10 +103,11 @@ public class CounterTest {
 		assertArrayEquals(testCounter.get(),needed);
 	}
 
-	/** Tests the <code>get</code> function.
+	/** Tests whether  the <code>get</code> function can obtain the array containing
+     * the counter's current time.
 	 * <br>
-	 * Initiate an instance of the Counter class at 1:1:1,
-	 * and call <code>get</code>.
+	 * Initializes an instance of the Counter class at 1:1:1,
+	 * and calls <code>get</code>.
 	 * <br>
 	 * Passes if result is 1:1:1. */
 	@Test
@@ -100,15 +118,16 @@ public class CounterTest {
 		assertArrayEquals(testCounter.get(),needed);
 	}
 
-	/** Tests <code>incrementSecond</code> function without
-	 * causing other fields to change.
+	/** Tests whether the <code>incrementSecond</code> function can increase the value of
+     * the seconds field by one.
 	 * <br>
-	 * Initialize the Counter to 0:0:0 and call
-	 * <code>incrementSecond</code>.
+	 * Initializes the Counter to 0:0:0 and calls
+	 * <code>incrementSecond</code>. Does not test if
+     * incrementing the seconds field past 59 can cause other fields to increment.
 	 * <br>
 	 * Passes if result is 0:0:1. */
 	@Test
-	public void testIncrementSecond_()
+	public void testIncrementSecond()
 	{
 		Counter testCounter = new Counter();
 		testCounter.incrementSecond();
@@ -116,13 +135,14 @@ public class CounterTest {
 		assertArrayEquals(testCounter.get(),needed);
 	}
 
-	/** Tests <code>incrementMinute</code> function without
-	 * causing other fields to change.
+	/** Tests whether the <code>incrementMinute</code> function can increase the value of
+     * the minutes field by one.
 	 * <br>
-	 * Initialize the Counter to 0:1:0 and call
-	 * <code>incrementMinute</code>.
+	 * Initializes the Counter to 0:0:0 and calls
+	 * <code>incrementMinute</code>. Does not test if
+     * incrementing the minutes field past 59 can cause other fields to increment.
 	 * <br>
-	 * Passes if result is 0:0:1. */
+	 * Passes if result is 0:1:0. */
 	@Test
 	public void testIncrementMinute()
 	{
@@ -132,13 +152,14 @@ public class CounterTest {
 		assertArrayEquals(testCounter.get(),needed);
 	}
 
-	/** Tests <code>incrementHour</code> function without
-	 * causing other fields to change.
+	/** Tests whether the <code>incrementHour</code> function can increase the value of
+     * the hours field by one.
 	 * <br>
-	 * Initialize the Counter to 1:0:0 and call
-	 * <code>incrementMinute</code>.
+	 * Initializes the Counter to 0:0:0 and calls
+	 * <code>incrementHour</code>. Does not test if
+     * incrementing the hours field past 23 can cause counter to rollover.
 	 * <br>
-	 * Passes if result is 0:0:1. */
+	 * Passes if result is 1:0:0. */
 	@Test
 	public void testIncrementHour()
 	{
@@ -148,11 +169,12 @@ public class CounterTest {
 		assertArrayEquals(testCounter.get(),needed);
 	}
 
-	/** Tests <code>decrementSecond</code> function without
-	 * causing other fields to change.
+	/** Tests whether the <code>decrementSecond</code> function can decrease the
+     * value of the seconds field by one.
 	 * <br>
-	 * Initialize the Counter to 1:1:1 and call
-	 * <code>decrementSecond</code>.
+	 * Initializes the Counter to 1:1:1 and calls
+	 * <code>decrementSecond</code>. Does not test if decrementing
+     * the seconds field past 0 can cause other fields to decrement.
 	 * <br>
 	 * Passes if result is 1:1:0. */
 	@Test
@@ -164,11 +186,12 @@ public class CounterTest {
 		assertArrayEquals(testCounter.get(),needed);
 	}
 
-	/** Tests <code>decrementMinute</code> function without
-	 * causing other fields to change.
+	/** Tests whether the <code>decrementMinute</code> function can decrease the
+     * value of the minutes field by one.
 	 * <br>
-	 * Initialize the Counter to 1:1:1 and call
-	 * <code>decrementMinute</code>.
+	 * Initializes the Counter to 1:1:1 and calls
+	 * <code>decrementMinute</code>. Does not test if decrementing
+     * the minutes field past 0 can cause other fields to decrement.
 	 * <br>
 	 * Passes if result is 1:0:1 */
 	@Test
@@ -180,11 +203,12 @@ public class CounterTest {
 		assertArrayEquals(testCounter.get(),needed);
 	}
 
-	/** Tests <code>decrementHour</code> function without
-	 * causing other fields to change.
+	/** Tests whether the <code>decrementHour</code> function can decrease the
+     * value of the hours field by one.
 	 * <br>
-	 * Initialize the Counter to 1:1:1 and call
-	 * <code>decrementHour</code>.
+	 * Initializes the Counter to 1:1:1 and calls
+	 * <code>decrementHour</code>. Does not test if decrementing
+     * the hours field past 0 can cause other fields to decrement.
 	 * <br>
 	 * Passes if result is 0:1:1. */
 	@Test
@@ -196,10 +220,10 @@ public class CounterTest {
 		assertArrayEquals(testCounter.get(),needed);
 	}
 
-	/** Tests if the minutes field increments when seconds field hits 60.
+	/** Tests whether minutes field can be incremented by incrementing seconds field.
 	 * <br>
-	 * Initialize an instance of counter to 0:0:59 and
-	 * call <code>incrementSecond</code>.
+	 * Initializes an instance of counter to 0:0:59 and
+	 * calls <code>incrementSecond</code>.
 	 * <br>
 	 * Passes if result is 0:1:0 */
 	@Test
@@ -211,12 +235,12 @@ public class CounterTest {
 		assertArrayEquals(testCounter.get(),needed);
 	}
 
-	/** Tests if the hours field increments when minutes field hits 60.
+	/** Tests whether hours field can be incremented by incrementing minutes field.
 	 * <br>
 	 * Initializes an instance of counter to 0:59:0 and
 	 * calls <code>incrementMinute</code>.
 	 * <br>
-	 * Passes if result is 0:1:0 */
+	 * Passes if result is 1:0:0 */
 	@Test
 	public void testIncrementHours_usingMinutes()
 	{
@@ -226,7 +250,7 @@ public class CounterTest {
 		assertArrayEquals(testCounter.get(),needed);
 	}
 
-	/** Tests if hours field can be incremented by incrementing seconds field.
+	/** Tests whether hours field can be incremented by incrementing seconds field.
 	 * <br>
 	 * Initializes an instance of counter to 0:59:59 and
 	 * calls <code>incrementSecond</code>.
@@ -241,12 +265,12 @@ public class CounterTest {
 		assertArrayEquals(testCounter.get(),needed);
 	}
 
-	/** Tests if hours field can be decremented by decrementing minutes field.
+	/** Tests whether hours field can be decremented by decrementing minutes field.
 	 * <br>
 	 * Initializes an instance of counter to 1:0:0 and
 	 * calls <code>decrementMinute</code>.
 	 * <br>
-	 * Passes if result is 0:59:59. */
+	 * Passes if result is 0:59:0. */
 	@Test
 	public void testDecrementHours_usingMinutes()
 	{
@@ -256,7 +280,7 @@ public class CounterTest {
 		assertArrayEquals(testCounter.get(),needed);
 	}
 
-	/** Tests if hours field can be decremented by decrementing seconds field.
+	/** Tests whether hours field can be decremented by decrementing seconds field.
 	 * <br>
 	 * Initializes an instance of counter to 1:0:0 and
 	 * calls <code>decrementSecond</code>.
@@ -271,7 +295,7 @@ public class CounterTest {
 		assertArrayEquals(testCounter.get(),needed);
 	}
 
-	/** Tests if minutes field can be decremented by decrementing seconds field.
+	/** Tests whether minutes field can be decremented by decrementing seconds field.
 	 * <br>
 	 * Initializes an instance of counter to 0:1:0 and
 	 * calls <code>decrementSecond</code>.
@@ -286,10 +310,10 @@ public class CounterTest {
 		assertArrayEquals(testCounter.get(),needed);
 	}
 
-	/** Tests if incrementing the hours field causes the counter to roll over.
+	/** Tests whether incrementing the hours field can cause the counter to roll over.
 	 * <br>
-	 * Initialize an instance of counter to 23:0:0
-	 * and call <code>incrementHour</code>.
+	 * Initializes an instance of counter to 23:0:0
+	 * and calls <code>incrementHour</code>.
 	 * <br>
 	 * Passes if result is 0:0:0. */
 	@Test
@@ -301,10 +325,10 @@ public class CounterTest {
 		assertArrayEquals(testCounter.get(), needed);
 	}
 
-	/** Tests if incrementing the minutes field causes the counter to roll over.
+	/** Tests whether incrementing the minutes field can cause the counter to roll over.
 	 * <br>
-	 * Initialize an instance of counter to 23:59:0
-	 * and call <code>incrementMinute</code>.
+	 * Initializes an instance of counter to 23:59:0
+	 * and calls <code>incrementMinute</code>.
 	 * <br>
 	 * Passes if result is 0:0:0. */
 	@Test
@@ -316,10 +340,10 @@ public class CounterTest {
 		assertArrayEquals(testCounter.get(),needed);
 	}
 
-	/** Tests if incrementing the seconds field causes the counter to roll over.
+	/** Tests whether incrementing the seconds field can cause the counter to roll over.
 	 * <br>
-	 * Initialize an instance of counter to 23:59:59
-	 * and call <code>incrementSecond</code>.
+	 * Initializes an instance of counter to 23:59:59
+	 * and calls <code>incrementSecond</code>.
 	 * <br>
 	 * Passes if result is 0:0:0. */
 	@Test

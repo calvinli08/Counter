@@ -2,11 +2,12 @@
 
 package intern;
 
-import javax.swing.*;
-
 /** Implements the Counter class specified in the Intern Project Requirements.
  * The counter increments and decrements itself in intervals of one unit;
  * either hour, minute, or second.
+ * This class contains two methods for String based display
+ * , displayStandard and displayMilitary.
+ * Window based display capabilities are provided in the bundled CounterDisplay class.
  * <br>
  * Written on Ubuntu Linux, Eclipse Luna, Java 8 SE.
  * <br>
@@ -37,6 +38,14 @@ import javax.swing.*;
  * 6) JavaFX tutorial:
  * <br>
  * http://docs.oracle.com/javafx/2/get_started/jfxpub-get_started.htm
+ * <br>
+ * 7) String.format arguments:
+ * <br>
+ * http://stackoverflow.com/questions/17881211/exception-in-thread-main-java-util-missingformatargumentexception-format-spec
+ * <br>
+ * 8) String.format flags
+ * <br>
+ * https://docs.oracle.com/javase/7/docs/api/java/util/Formatter.html#dt
  *
  * @author Calvin Li
  * @version 1.0
@@ -108,44 +117,54 @@ public class Counter {
         return time;
 	}
 
-	/** Displays the counters current time in Standard 12-hour format.
+	/** Formats the counters current time in Standard 12-hour format
+	 * and returns as String.
 	 * <p>
 	 * Since most display mediums can be expected to use strings,
-	 * strings with format tags are also provided.
+	 * strings with format tags are provided in addition to 
+	 * the JavaFX window.
 	 *
 	 * @return	String containing current counter time in Standard 12-hour format
 	 * */
 	public String displayStandard()
 	{
-		/** Checks if it is the morning or the afternoon
-		 * and prints the appropriate 12-hour time with AM/PM marker
-		 * to standard output.
-		 * Also returns Strings containing time. */
+		/* 12 hour Standard format Strings containing time.
+		 * Checks if it is morning or afternoon and returns the appropriate
+		 * 12-hour time with AM/PM marker.
+		 * First converts the int values in count to long values. 
+		 */
+		long hour = Integer.toUnsignedLong(count[0]);
+		long minute = Integer.toUnsignedLong(count[1]);
+		long second = Integer.toUnsignedLong(count[2]);
 			if (count[0] > 12)
 			{
-				System.out.format("%tl:%tM:%tS PM" , (count[0] - 12), count[1], count[2]);
-				return String.format("%tl:%tM:%tS PM", (count[0] - 12), count[1], count[2]);
+				System.out.format("%tl:%tM:%tS PM" , (hour - 12), minute, second);
+				return String.format("%tl:%tM:%tS PM", (hour - 12), minute, second);
 			}
 			else
 			{
-				System.out.format("%tl:%tM:%tS AM" , count[0], count[1], count[2]);
-				return String.format("%tl:%tM:%tS AM", count[0], count[1], count[2]);
+				System.out.format("%tl:%tM:%tS AM" , hour, minute, second);
+				return String.format("%tl:%tM:%tS AM", hour, minute, second);
 			}
 	}
 
-	/** Displays the counter's current time in Military 24-hour format.
+	/** Formats the counter's current time in Military 24-hour format
+	 * and returns as String.
 	 * <p>
 	 * Since most display mediums can be expected to use strings,
-	 * strings with format tags are also provided.
+	 * strings with format tags are provided in addition to 
+	 * the JavaFX window.
 	 *
 	 * @return	String containing current counter time in Military 24-hour format
      */
 	public String displayMilitary()
 	{
-		/** Prints military time to standard output.
-		 * Also returns strings for use in other applications */
-		System.out.format("%tH:%tM:%tS" , count[0], count[1], count[2]);
-		return String.format("%tH:%tM:%tS");
+		/* 24 hour Military format Strings for use in other applications. 
+		 * First converts the int values in count to long values. */
+		long hour = Integer.toUnsignedLong(count[0]);
+		long minute = Integer.toUnsignedLong(count[1]);
+		long second = Integer.toUnsignedLong(count[2]);
+		return String.format("%tH:%tM:%tS", hour, minute, second);
 	}
 
 	/* Methods used to increment and decrement the counter */

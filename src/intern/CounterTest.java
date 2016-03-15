@@ -8,7 +8,7 @@ import intern.Counter;
 
 /** JUnit test stub class for the Counter class.
  * <br>
- * Validates the functionality of the Counter class through JUnit Tests.
+ * Validates the functionality of the Counter class through JUnit tests.
  * There is a test for each method within the class, as well as for each
  * possible rollover situation. A rollover situation occurs when incrementing one
  * field beyond it's upper bound causes other fields to change. For example,

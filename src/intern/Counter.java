@@ -128,7 +128,7 @@ public class Counter {
 	 * */
 	public String displayStandard()
 	{
-		/* 12 hour Standard format Strings containing time.
+		/* Returns 12 hour Standard format Strings containing counter time.
 		 * Checks if it is morning or afternoon and returns the appropriate
 		 * 12-hour time with AM/PM marker.
 		 * First converts the int values in count to long values. 
@@ -138,13 +138,11 @@ public class Counter {
 		long second = Integer.toUnsignedLong(count[2]);
 			if (count[0] > 12)
 			{
-				System.out.format("%tl:%tM:%tS PM" , (hour - 12), minute, second);
-				return String.format("%tl:%tM:%tS PM", (hour - 12), minute, second);
+				return String.format("%d:%02d:%02d PM", (hour - 12), minute, second);
 			}
 			else
 			{
-				System.out.format("%tl:%tM:%tS AM" , hour, minute, second);
-				return String.format("%tl:%tM:%tS AM", hour, minute, second);
+				return String.format("%d:%02d:%02d AM", hour, minute, second);
 			}
 	}
 
@@ -164,7 +162,7 @@ public class Counter {
 		long hour = Integer.toUnsignedLong(count[0]);
 		long minute = Integer.toUnsignedLong(count[1]);
 		long second = Integer.toUnsignedLong(count[2]);
-		return String.format("%tH:%tM:%tS", hour, minute, second);
+		return String.format("%02d:%02d:%02d", hour, minute, second);
 	}
 
 	/* Methods used to increment and decrement the counter */

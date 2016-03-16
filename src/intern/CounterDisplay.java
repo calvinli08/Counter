@@ -1,8 +1,9 @@
 package intern;
 
 import intern.Counter;
-import javafx.animation.Animation;
+import javafx.animation.AnimationTimer;
 import javafx.animation.FadeTransition;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -51,8 +52,18 @@ public class CounterDisplay extends Application {
 		time.setTextAlignment(TextAlignment.CENTER);
 		time.setFont(new Font(30));
 		time.setText(display.displayStandard());
-		FadeTransition output = new FadeTransition(Duration.millis(1), time);
-		output.setCycleCount(INDEFINITE);
+		
+		/* Create a transition to update the text when buttons are clicked */
+//		FadeTransition output = new FadeTransition(Duration.millis(1), time);
+//		output.setCycleCount(Timeline.INDEFINITE);
+//		output.setFromValue(1.0);
+//		output.setToValue(0);
+		AnimationTimer updater = new AnimationTimer(){
+			@Override
+			public void handle(long h)	{
+				time.setText(display.displayStandard());
+			}	
+		};
 		
 		/* Buttons for changing the counter time */
 		Button incSec = new Button(); 
@@ -88,50 +99,43 @@ public class CounterDisplay extends Application {
 		incSec.setOnAction(new EventHandler<ActionEvent>()	{
 			public void handle(ActionEvent click)	{
 				display.incrementSecond();
-				time.setText(display.displayMilitary());
-				
 			}
 		});
 		decSec.setOnAction(new EventHandler<ActionEvent>()	{
 			public void handle(ActionEvent click)	{
 				display.decrementSecond();
-				time.setText(display.displayMilitary());
 			}
 		});
 		incMin.setOnAction(new EventHandler<ActionEvent>()	{
 			public void handle(ActionEvent click)	{
 				display.incrementMinute();
-				time.setText(display.displayMilitary());
 			}
 		});
 		decMin.setOnAction(new EventHandler<ActionEvent>()	{
 			public void handle(ActionEvent click)	{
 				display.decrementMinute();
-				time.setText(display.displayMilitary());
 			}
 		});
 		incHr.setOnAction(new EventHandler<ActionEvent>()	{
 			public void handle(ActionEvent click)	{
 				display.incrementHour();
-				time.setText(display.displayMilitary());
 			}
 		});
 		decHr.setOnAction(new EventHandler<ActionEvent>()	{
 			public void handle(ActionEvent click)	{
 				display.decrementHour();
-				time.setText(display.displayMilitary());
 			}
 		});	
 		changeFormat.setOnAction(new EventHandler<ActionEvent>()	{
 			public void handle(ActionEvent click)	{
-				display.displayStandard();
-				time.setText(display.displayMilitary());
 			}
 		});
 		
 		/* Set the title for the window and display it */
 		mainStage.setTitle("Counter");
 		mainStage.setScene(mainScene);
+		updater.start();
+		//output.play();
 		mainStage.show();	
 		
 	}
